@@ -4,21 +4,21 @@ resource "azurerm_resource_group" "deploy" {
 }
 
 resource "azurerm_virtual_network" "deploy" {
-  name                = "deploy-vnet"
+  name                = var.vnet_name
   location            = azurerm_resource_group.deploy.location
   resource_group_name = azurerm_resource_group.deploy.name
   address_space       = ["10.0.1.0/16"]
 }
 
 resource "azurerm_subnet" "deploy" {
-  name                 = "deploy-subnet"
+  name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.deploy.name
   virtual_network_name = azurerm_virtual_network.deploy.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "deploy" {
-  name                = "deploy-nsg"
+  name                = var.nsg_name
   location            = azurerm_resource_group.deploy.location
   resource_group_name = azurerm_resource_group.deploy.name
 
@@ -93,7 +93,7 @@ resource "azuread_group_member" "admin" {
 }
 
 resource "azuread_service_principal" "example" {
-  application_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // published app for domain services
+  application_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // your own application ID published in domain services. You will find it inside Azure portal.
 }
 
 resource "azurerm_resource_group" "aadds" {
