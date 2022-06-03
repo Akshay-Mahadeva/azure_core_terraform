@@ -8,12 +8,12 @@ locals {
   resource_group_name = "Cloudfoundation"
   location            = "eastus"
   retention_days      = "7"
-  name                = "cloud-foundation" 
+  name                = "cloud-foundation"
   tags = {
     environment = "production"
-    deployment  = "Terraform"}
-  }
- 
+  deployment = "Terraform" }
+}
+
 
 
 
@@ -23,10 +23,10 @@ data "azurerm_resource_group" "rg" {
 
 # Azure active domain
 module "azure_active_domain" {
-  source = "./active_domain"
-  address_space = []
+  source           = "./active_domain"
+  address_space    = []
   address_prefixes = []
-  
+
 }
 
 # resource "random_string" "ran_name" {
@@ -47,7 +47,7 @@ module "storage_module" {
 
 # #log analytics workspace
 module "log_module" {
-  source              = "git::https://akshay:iwhb64thiwvu5sgmbq4jopcyz46ejhgenvkfa5ijrrohr422abwq@dev.azure.com/ismiletechnologies/CloudAgnosticIaC/_git/azure_terraform_log_analytics_module"
+  source              = ""
   location            = data.azurerm_resource_group.rg.location
   name                = "log-core-${local.name}"
   solution_name       = "lga-${local.name}"
@@ -59,7 +59,7 @@ module "log_module" {
 
 # #Keyvault working 
 module "key_vault_module" {
-  source = "git::https://akshay:iwhb64thiwvu5sgmbq4jopcyz46ejhgenvkfa5ijrrohr422abwq@dev.azure.com/ismiletechnologies/CloudAgnosticIaC/_git/azure_terraform_key_vault"
+  source = ""
 
   # Resource Group Variables
 
@@ -94,4 +94,4 @@ module "key_vault_module" {
 }
 
 
-  
+
