@@ -8,10 +8,9 @@ locals {
   resource_group_name = "Cloudfoundation"
   location            = "eastus"
   retention_days      = "7"
-  name                = "cloud-foundation"
+  name                = "cloud-foundation" 
   tags = {
     environment = "production"
-    region      = "eastus"
     deployment  = "Terraform"}
   }
  
@@ -43,8 +42,6 @@ module "storage_module" {
   container_name       = "ct-${local.name}"
   blob_name            = "blob-${local.name}"
   resource_group_name  = data.azurerm_resource_group.rg.name
-
-  
 
 }
 
